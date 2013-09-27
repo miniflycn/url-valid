@@ -1,0 +1,34 @@
+{
+  "name": "url-vaild",
+  "version": "0.0.1",
+  "description": "Url validity detection library",
+  "keywords": [
+    "vaild",
+    "validity",
+    "url",
+    "library"
+  ],
+  "repository": "git://github.com/miniflycn/url-vaild.git",
+  "author": "Daniel Yang <miniflycn@gmail.com>",
+  "main": "index",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "connect": "*",
+    "blanket": "*",
+    "coveralls": "*",
+    "mocha-lcov-reporter": "*"
+  },
+  "scripts": {
+    "test": "mocha",
+    "blanket": {
+      "pattern": "url-vaild/lib"
+    }
+  }
+}
