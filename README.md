@@ -77,6 +77,24 @@ vaild.some([
   err && console.log(err);
   console.log(data);
 });
+
+/**
+ * vaild(url, callback) === one(url, callback)
+ */
+vaild('http://www.baidu.com', function (err, vaild) {
+  if (err) throw err;
+  console.log(vaild);
+});
+/**
+ * vaild(urls, callback) === some(urls, callback)
+ */
+vaild([
+  'http://www.baidu.com',
+  'http://www.google.com',
+], function (err, data) {
+  err && console.log(err);
+  console.log(data);
+});
 ```
 ## Examples
 * https://github.com/miniflycn/url-vaild/tree/master/examples
