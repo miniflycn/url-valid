@@ -1,4 +1,7 @@
+[![Build Status](https://travis-ci.org/miniflycn/url-vaild.png?branch=master)](https://travis-ci.org/miniflycn/url-vaild)
+[![Coverage Status](https://coveralls.io/repos/miniflycn/url-vaild/badge.png?branch=master)](https://coveralls.io/r/miniflycn/url-vaild?branch=master)
 # url-vaild
+[![NPM](https://nodei.co/npm/url-vaild.png)](https://npmjs.org/package/url-vaild)
 
 Homepage: https://github.com/miniflycn/url-vaild
 
