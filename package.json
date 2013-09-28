@@ -14,21 +14,5 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "license": "MIT",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "mocha": "*",
-    "should": "*",
-    "connect": "*",
-    "blanket": "*",
-    "coveralls": "*",
-    "mocha-lcov-reporter": "*"
-  },
-  "scripts": {
-    "test": "mocha",
-    "blanket": {
-      "pattern": "url-vaild/lib"
-    }
-  }
+  "license": "MIT"
 }
