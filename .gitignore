@@ -218,3 +218,4 @@ pip-log.txt
 ## NodeJS
 #############
 node_modules/
+coverage.html

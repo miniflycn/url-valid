@@ -2,17 +2,26 @@ var assert = require('assert')
   , connect = require('connect')
   , vaild = require('../lib/vaild');
 
-var testSever = connect().use('/available', function (req, res, next) {
+var testSever = connect()
+                .use('/available', function (req, res, next) {
                   res.writeHead(200, {
                     'Content-Type': 'text/html; charset=UTF-8'
                   });
                   res.statusCode = 200;
                   res.end('hello world!');
-                }).listen(7777);
+                })
+                .use('/move', function (req, res, next) {
+                  res.writeHead(302, {
+                    'Location': 'http://localhost:7777/available'
+                  });
+                  res.statusCode = 302;
+                  res.end();
+                })
+                .listen(7777);
 
 describe('vaild', function () {
   it('should able to check one url', function (done) {
-    vaild.one('http://localhost:7777/available', function (err, vaild) {
+    vaild('http://localhost:7777/available', function (err, vaild) {
       assert.deepEqual(err, null);
       vaild.should.be.true;
       done();
@@ -41,9 +50,10 @@ describe('vaild', function () {
     });
   });
 
+
   it('should able to check some url', function (done) {
     var num = 0;
-    vaild.some([
+    vaild([
       'http://localhost:7777/available/0',
       'http://localhost:7777/available/1',
       'http://localhost:7777/available/2',
@@ -79,6 +89,33 @@ describe('vaild', function () {
 
   it('should able to fire when response send data', function (done) {
     vaild.one('http://localhost:7777/available').on('data', function (err, data) {
+      data.toString().should.equal('hello world!');
+      done();
+    });
+  });
+
+  it('should not able to support "data" & "end" event when use .some method', function () {
+    (function () {
+      vaild.some([
+        'http://localhost:7777/available/0',
+        'http://localhost:7777/available/1',
+        'http://localhost:7777/available/2',
+        'http://localhost:7777/available/3'
+      ]).on('data', function () {});
+    }).should.throw()
+  });
+
+  it('should able to support a redirect url', function (done) {
+    vaild.one('http://localhost:7777/move', function (err, vaild) {
+      vaild.should.be.true;
+      done();
+    });
+  });
+
+  it('should able to use .on method if it is a redirect url', function (done) {
+    vaild.one('http://localhost:7777/move', function (err, vaild) {
+      vaild.should.be.true;
+    }).on('data', function (err, data) {
       data.toString().should.equal('hello world!');
       done();
     });
