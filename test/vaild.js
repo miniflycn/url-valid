@@ -134,23 +134,15 @@ describe('vaild', function () {
             });
   });
 
-  it('should able to destroy a MutilVaild instance', function (done) {
-    var d = require('domain').create()
-      , i = 0;
-    d.on('error', function(err) {
-      if (++i > 3) done();
-    });
-    d.run(function () {
-      var m = vaild([
-        'http://localhost:7777/available/0',
-        'http://localhost:7777/available/1',
-        'http://localhost:7777/available/2',
-        'http://localhost:7777/available/3'
-      ])
-      d.add(m.emitter);
-      m.destroy();
-      assert.deepEqual(m.emitter, null);
-      assert.deepEqual(m.fetch, undefined);
-    });
+  it('should able to destroy a MutilVaild instance', function () {
+    var m = vaild([
+      'http://localhost:7777/available/0',
+      'http://localhost:7777/available/1',
+      'http://localhost:7777/available/2',
+      'http://localhost:7777/available/3'
+    ]);
+    m.destroy();
+    assert.deepEqual(m.emitter, null);
+    assert.deepEqual(m.fetch, undefined);
   });
 });
