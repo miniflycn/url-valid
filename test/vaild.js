@@ -147,7 +147,7 @@ describe('vaild', function () {
         'http://localhost:7777/available/2',
         'http://localhost:7777/available/3'
       ])
-      d.add(m);
+      d.add(m.emitter);
       m.destroy();
       assert.deepEqual(m.emitter, null);
       assert.deepEqual(m.fetch, undefined);
