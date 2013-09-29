@@ -120,4 +120,37 @@ describe('vaild', function () {
       done();
     });
   });
+
+  it('should able to destroy a Vaild instance', function (done) {
+    var v = vaild('http://localhost:7777/available')
+            .on('check', function (err, vaild) {
+              vaild.should.be.true;
+            }).on('end', function () {
+              v.destroy();
+              assert.deepEqual(v.url, undefined);
+              assert.deepEqual(v.emitter, null);
+              assert.deepEqual(v.fetch, undefined);
+              done();
+            });
+  });
+
+  it('should able to destroy a MutilVaild instance', function (done) {
+    var d = require('domain').create()
+      , i = 0;
+    d.on('error', function(err) {
+      if (++i > 3) done();
+    });
+    d.run(function () {
+      var m = vaild([
+        'http://localhost:7777/available/0',
+        'http://localhost:7777/available/1',
+        'http://localhost:7777/available/2',
+        'http://localhost:7777/available/3'
+      ])
+      d.add(m);
+      m.destroy();
+      assert.deepEqual(m.emitter, null);
+      assert.deepEqual(m.fetch, undefined);
+    });
+  });
 });
