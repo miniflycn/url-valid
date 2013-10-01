@@ -145,4 +145,20 @@ describe('vaild', function () {
     assert.deepEqual(m.emitter, null);
     assert.deepEqual(m.fetch, undefined);
   });
+
+  it('should emit end event when finish validity detection', function (done) {
+    var step = 0
+      , v = vaild('http://localhost:7777/move').on('check', function (err, vaild) {
+          step.should.equal(0);
+          step = 1;
+          vaild.should.be.true;
+        }).on('data', function (err, data) {
+          step.should.equal(1);
+          step = 2;
+          data.toString().should.equal('hello world!');
+        }).on('end', function () {
+          step.should.equal(2);
+          done();
+        });
+  });
 });
