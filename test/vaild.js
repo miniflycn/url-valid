@@ -134,16 +134,18 @@ describe('vaild', function () {
             });
   });
 
-  it('should able to destroy a MutilVaild instance', function () {
+  it('should able to destroy a MutilVaild instance', function (done) {
     var m = vaild([
       'http://localhost:7777/available/0',
       'http://localhost:7777/available/1',
       'http://localhost:7777/available/2',
       'http://localhost:7777/available/3'
-    ]);
-    m.destroy();
-    assert.deepEqual(m.emitter, null);
-    assert.deepEqual(m.fetch, undefined);
+    ]).on('end', function () {
+      m.destroy();
+      assert.deepEqual(m.emitter, null);
+      assert.deepEqual(m.fetch, undefined);
+      done();
+    });
   });
 
   it('should emit end event when finish validity detection', function (done) {
