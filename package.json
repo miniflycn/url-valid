@@ -1,14 +1,14 @@
 {
-  "name": "url-vaild",
+  "name": "url-valid",
   "version": "0.0.7",
   "description": "Url validity detection library",
   "keywords": [
-    "vaild",
+    "valid",
     "validity",
     "url",
     "library"
   ],
-  "repository": "git://github.com/miniflycn/url-vaild.git",
+  "repository": "git://github.com/miniflycn/url-valid.git",
   "author": "Daniel Yang <miniflycn@gmail.com>",
   "main": "index",
   "engines": {
@@ -25,7 +25,7 @@
   "scripts": {
     "test": "mocha",
     "blanket": {
-      "pattern": "url-vaild/lib"
+      "pattern": "url-valid/lib"
     }
   },
   "license": "MIT"
