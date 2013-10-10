@@ -1,8 +1,8 @@
 module.exports = (function () {
   "use strict"
-  var vaild = require('../');
+  var valid = require('../');
 
-  vaild.some([
+  valid.some([
     'http://www.baidu.com',
     'http://www.google.com',
     'http://www.nothissite.com',

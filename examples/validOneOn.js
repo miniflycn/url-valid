@@ -2,8 +2,8 @@ module.exports = (function () {
   "use strict"
   var vaild = require('../');
 
-  vaild.one('http://www.google.com').on('check', function (err, vaild) {
+  valid.one('http://www.google.com').on('check', function (err, valid) {
   	if (err) throw err;
-  	console.log(vaild);
+  	console.log(valid);
   });
 })();

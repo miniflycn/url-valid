@@ -1,10 +1,10 @@
 module.exports = (function () {
   "use strict"
-  var vaild = require('../');
+  var valid = require('../');
 
-  vaild.one('http://www.google.com', function (err, vaild) {
+  valid.one('http://www.google.com', function (err, valid) {
   	if (err) throw err;
-  	console.log(vaild);
+  	console.log(valid);
   }).on('data', function (err, data) {
   	if (err) throw err;
   	console.log(data.toString());

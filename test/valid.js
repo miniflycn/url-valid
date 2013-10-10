@@ -1,6 +1,6 @@
 var assert = require('assert')
   , connect = require('connect')
-  , vaild = require('../lib/vaild');
+  , valid = require('../lib/valid');
 
 var testSever = connect()
                 .use('/available', function (req, res, next) {
@@ -19,33 +19,33 @@ var testSever = connect()
                 })
                 .listen(7777);
 
-describe('vaild', function () {
+describe('valid', function () {
   it('should able to check one url', function (done) {
-    vaild('http://localhost:7777/available', function (err, vaild) {
+    valid('http://localhost:7777/available', function (err, valid) {
       assert.deepEqual(err, null);
-      vaild.should.be.true;
+      valid.should.be.true;
       done();
     });
   });
 
   it('should able to use .on method for one url', function (done) {
-    vaild.one('http://localhost:7777/available').on('check', function (err, vaild) {
+    valid.one('http://localhost:7777/available').on('check', function (err, valid) {
       assert.deepEqual(err, null);
-      vaild.should.be.true;
+      valid.should.be.true;
       done();
     });
   });
 
   it('should able to detect a 404 url', function (done) {
-    vaild.one('http://localhost:7777/unavailable', function (err, vaild) {
-      vaild.should.be.false;
+    valid.one('http://localhost:7777/unavailable', function (err, valid) {
+      valid.should.be.false;
       done();
     });
   });
 
-  it('should able to vaildate a url', function (done) {
-    vaild.one('test.test', function (err, vaild) {
-      vaild.should.be.false;
+  it('should able to validate a url', function (done) {
+    valid.one('test.test', function (err, valid) {
+      valid.should.be.false;
       done();
     });
   });
@@ -53,13 +53,13 @@ describe('vaild', function () {
 
   it('should able to check some url', function (done) {
     var num = 0;
-    vaild([
+    valid([
       'http://localhost:7777/available/0',
       'http://localhost:7777/available/1',
       'http://localhost:7777/available/2',
       'http://localhost:7777/available/3'
     ], function (err, data) {
-      data.vaild.should.be.true;
+      data.valid.should.be.true;
       if (++num > 3) {
         done();
       }
@@ -68,13 +68,13 @@ describe('vaild', function () {
 
   it('should able to use .on method for some url', function (done) {
     var num = 0;
-    vaild.some([
+    valid.some([
       'http://localhost:7777/available/0',
       'http://localhost:7777/available/1',
       'http://localhost:7777/available/2',
       'http://localhost:7777/available/3'
     ]).on('check', function (err, data) {
-      data.vaild.should.be.true;
+      data.valid.should.be.true;
       if (++num > 3) {
         done();
       }
@@ -82,13 +82,13 @@ describe('vaild', function () {
   });
 
   it('should able to fire when response finish', function (done) {
-    vaild.one('http://localhost:7777/available').on('end', function () {
+    valid.one('http://localhost:7777/available').on('end', function () {
       done();
     });
   });
 
   it('should able to fire when response send data', function (done) {
-    vaild.one('http://localhost:7777/available').on('data', function (err, data) {
+    valid.one('http://localhost:7777/available').on('data', function (err, data) {
       data.toString().should.equal('hello world!');
       done();
     });
@@ -96,7 +96,7 @@ describe('vaild', function () {
 
   it('should not able to support "data" & "end" event when use .some method', function () {
     (function () {
-      vaild.some([
+      valid.some([
         'http://localhost:7777/available/0',
         'http://localhost:7777/available/1',
         'http://localhost:7777/available/2',
@@ -106,25 +106,25 @@ describe('vaild', function () {
   });
 
   it('should able to support a redirect url', function (done) {
-    vaild.one('http://localhost:7777/move', function (err, vaild) {
-      vaild.should.be.true;
+    valid.one('http://localhost:7777/move', function (err, valid) {
+      valid.should.be.true;
       done();
     });
   });
 
   it('should able to use .on method if it is a redirect url', function (done) {
-    vaild.one('http://localhost:7777/move', function (err, vaild) {
-      vaild.should.be.true;
+    valid.one('http://localhost:7777/move', function (err, valid) {
+      valid.should.be.true;
     }).on('data', function (err, data) {
       data.toString().should.equal('hello world!');
       done();
     });
   });
 
-  it('should able to destroy a Vaild instance', function (done) {
-    var v = vaild('http://localhost:7777/available')
-            .on('check', function (err, vaild) {
-              vaild.should.be.true;
+  it('should able to destroy a Valid instance', function (done) {
+    var v = valid('http://localhost:7777/available')
+            .on('check', function (err, valid) {
+              valid.should.be.true;
             }).on('end', function () {
               v.destroy();
               assert.deepEqual(v.url, undefined);
@@ -134,8 +134,8 @@ describe('vaild', function () {
             });
   });
 
-  it('should able to destroy a MutilVaild instance', function (done) {
-    var m = vaild([
+  it('should able to destroy a MutilValid instance', function (done) {
+    var m = valid([
       'http://localhost:7777/available/0',
       'http://localhost:7777/available/1',
       'http://localhost:7777/available/2',
@@ -150,10 +150,10 @@ describe('vaild', function () {
 
   it('should emit end event when finish validity detection', function (done) {
     var step = 0
-      , v = vaild('http://localhost:7777/move').on('check', function (err, vaild) {
+      , v = valid('http://localhost:7777/move').on('check', function (err, valid) {
           step.should.equal(0);
           step = 1;
-          vaild.should.be.true;
+          valid.should.be.true;
         }).on('data', function (err, data) {
           step.should.equal(1);
           step = 2;

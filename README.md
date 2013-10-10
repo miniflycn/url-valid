@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/miniflycn/url-vaild.png?branch=master)](https://travis-ci.org/miniflycn/url-vaild)
-[![Coverage Status](https://coveralls.io/repos/miniflycn/url-vaild/badge.png?branch=master)](https://coveralls.io/r/miniflycn/url-vaild?branch=master)
-# url-vaild
-[![NPM](https://nodei.co/npm/url-vaild.png)](https://npmjs.org/package/url-vaild)
+[![Build Status](https://travis-ci.org/miniflycn/url-valid.png?branch=master)](https://travis-ci.org/miniflycn/url-valid)
+[![Coverage Status](https://coveralls.io/repos/miniflycn/url-valid/badge.png?branch=master)](https://coveralls.io/r/miniflycn/url-valid?branch=master)
+# url-valid
+[![NPM](https://nodei.co/npm/url-valid.png)](https://npmjs.org/package/url-valid)
 
-Homepage: https://github.com/miniflycn/url-vaild
+Homepage: https://github.com/miniflycn/url-valid
 
 ## Project Goals
 Url validity detection library.
@@ -11,17 +11,17 @@ Url validity detection library.
 ## Setup
 Setup
 
-    $ npm install url-vaild
+    $ npm install url-valid
 
 
 ## Useage
 
 ```js
-var vaild = require('url-vaild');
+var valid = require('url-valid');
 
-vaild.one('http://www.google.com', function (err, vaild) {
+valid.one('http://www.google.com', function (err, valid) {
   if (err) throw err;
-  console.log(vaild);
+  console.log(valid);
 });
 ```
 
@@ -32,31 +32,31 @@ vaild.one('http://www.google.com', function (err, vaild) {
  * one(url, callback)
  * @param {String} url
  * @param {Function} callback
- * @return {Vaild}
+ * @return {Valid}
  */
-vaild.one('http://www.baidu.com', function (err, vaild) {
+valid.one('http://www.baidu.com', function (err, valid) {
   if (err) throw err;
-  console.log(vaild);
+  console.log(valid);
 });
 /**
- * Vaild
+ * Valid
  * @class
  *  - on(event, callback)
  *    @param {String} event, event can be 'check', 'data', 'end'
  *    @param {Function} callback
  */
-vaild.one('http://www.baidu.com').on('check', function (err, vaild) {
+valid.one('http://www.baidu.com').on('check', function (err, valid) {
   if (err) throw err;
-  console.log(vaild);
+  console.log(valid);
 });
 
 /**
  * some
  * @param {Array} urls
  * @param {Function} callback
- * @return {MultiVaild}
+ * @return {MultiValid}
  */
-vaild.some([
+valid.some([
   'http://www.baidu.com',
   'http://www.google.com',
 ], function (err, data) {
@@ -64,13 +64,13 @@ vaild.some([
   console.log(data);
 });
 /**
- * MultiVaild
+ * MultiValid
  * @class
  *  - on(event, callback)
  *    @param {String} event, event can be 'check'
  *    @param {Function} callback
  */
-vaild.some([
+valid.some([
   'http://www.baidu.com',
   'http://www.google.com',
 ]).on('check', function (err, data) {
@@ -79,16 +79,16 @@ vaild.some([
 });
 
 /**
- * vaild(url, callback) === one(url, callback)
+ * valid(url, callback) === one(url, callback)
  */
-vaild('http://www.baidu.com', function (err, vaild) {
+valid('http://www.baidu.com', function (err, valid) {
   if (err) throw err;
-  console.log(vaild);
+  console.log(valid);
 });
 /**
- * vaild(urls, callback) === some(urls, callback)
+ * valid(urls, callback) === some(urls, callback)
  */
-vaild([
+valid([
   'http://www.baidu.com',
   'http://www.google.com',
 ], function (err, data) {
@@ -97,7 +97,7 @@ vaild([
 });
 ```
 ## Examples
-* https://github.com/miniflycn/url-vaild/tree/master/examples
+* https://github.com/miniflycn/url-valid/tree/master/examples
 
 ## License
 (The MIT License)
