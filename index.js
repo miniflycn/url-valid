@@ -1,3 +1,3 @@
 exports = module.exports = require('./lib/valid');
 
-exports.version = '0.0.7';
+exports.version = '0.1.0';
