@@ -49,6 +49,7 @@ valid('http://www.baidu.com').on('check', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
+```
 
 ## Examples
 * https://github.com/miniflycn/url-valid/tree/master/examples
