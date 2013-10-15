@@ -51,36 +51,6 @@ describe('valid', function () {
   });
 
 
-  it('should able to check some url', function (done) {
-    var num = 0;
-    valid([
-      'http://localhost:7777/available/0',
-      'http://localhost:7777/available/1',
-      'http://localhost:7777/available/2',
-      'http://localhost:7777/available/3'
-    ], function (err, data) {
-      data.valid.should.be.true;
-      if (++num > 3) {
-        done();
-      }
-    });
-  });
-
-  it('should able to use .on method for some url', function (done) {
-    var num = 0;
-    valid.some([
-      'http://localhost:7777/available/0',
-      'http://localhost:7777/available/1',
-      'http://localhost:7777/available/2',
-      'http://localhost:7777/available/3'
-    ]).on('check', function (err, data) {
-      data.valid.should.be.true;
-      if (++num > 3) {
-        done();
-      }
-    });
-  });
-
   it('should able to fire when response finish', function (done) {
     valid.one('http://localhost:7777/available').on('end', function () {
       done();
@@ -92,17 +62,6 @@ describe('valid', function () {
       data.toString().should.equal('hello world!');
       done();
     });
-  });
-
-  it('should not able to support "data" & "end" event when use .some method', function () {
-    (function () {
-      valid.some([
-        'http://localhost:7777/available/0',
-        'http://localhost:7777/available/1',
-        'http://localhost:7777/available/2',
-        'http://localhost:7777/available/3'
-      ]).on('data', function () {});
-    }).should.throw()
   });
 
   it('should able to support a redirect url', function (done) {
@@ -132,20 +91,6 @@ describe('valid', function () {
               assert.deepEqual(v.fetch, undefined);
               done();
             });
-  });
-
-  it('should able to destroy a MutilValid instance', function (done) {
-    var m = valid([
-      'http://localhost:7777/available/0',
-      'http://localhost:7777/available/1',
-      'http://localhost:7777/available/2',
-      'http://localhost:7777/available/3'
-    ]).on('end', function () {
-      m.destroy();
-      assert.deepEqual(m.emitter, null);
-      assert.deepEqual(m.fetch, undefined);
-      done();
-    });
   });
 
   it('should emit end event when finish validity detection', function (done) {

@@ -19,7 +19,7 @@ Setup
 ```js
 var valid = require('url-valid');
 
-valid.one('http://www.google.com', function (err, valid) {
+valid('http://www.google.com', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
@@ -28,13 +28,13 @@ valid.one('http://www.google.com', function (err, valid) {
 ## API
 ```js
 /**
- * one(url)
- * one(url, callback)
+ * valid(url)
+ * valid(url, callback)
  * @param {String} url
  * @param {Function} callback
  * @return {Valid}
  */
-valid.one('http://www.baidu.com', function (err, valid) {
+valid('http://www.baidu.com', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
@@ -45,57 +45,11 @@ valid.one('http://www.baidu.com', function (err, valid) {
  *    @param {String} event, event can be 'check', 'data', 'end'
  *    @param {Function} callback
  */
-valid.one('http://www.baidu.com').on('check', function (err, valid) {
+valid('http://www.baidu.com').on('check', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
 
-/**
- * some
- * @param {Array} urls
- * @param {Function} callback
- * @return {MultiValid}
- */
-valid.some([
-  'http://www.baidu.com',
-  'http://www.google.com',
-], function (err, data) {
-  err && console.log(err);
-  console.log(data);
-});
-/**
- * MultiValid
- * @class
- *  - on(event, callback)
- *    @param {String} event, event can be 'check'
- *    @param {Function} callback
- */
-valid.some([
-  'http://www.baidu.com',
-  'http://www.google.com',
-]).on('check', function (err, data) {
-  err && console.log(err);
-  console.log(data);
-});
-
-/**
- * valid(url, callback) === one(url, callback)
- */
-valid('http://www.baidu.com', function (err, valid) {
-  if (err) throw err;
-  console.log(valid);
-});
-/**
- * valid(urls, callback) === some(urls, callback)
- */
-valid([
-  'http://www.baidu.com',
-  'http://www.google.com',
-], function (err, data) {
-  err && console.log(err);
-  console.log(data);
-});
-```
 ## Examples
 * https://github.com/miniflycn/url-valid/tree/master/examples
 
