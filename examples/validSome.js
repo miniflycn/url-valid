@@ -3,10 +3,10 @@ module.exports = (function () {
   var some = require('./some');
 
   some([
-  	'http://www.baidu.com',
-  	'http://www.google.com'
+    'http://www.baidu.com',
+    'http://www.google.com'
   ], function (err, data) {
-  	if (err) throw err;
-  	console.log(data);
+    if (err) throw err;
+    console.log(data);
   });
 })();
