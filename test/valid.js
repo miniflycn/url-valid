@@ -10,11 +10,25 @@ var testSever = connect()
                   res.statusCode = 200;
                   res.end('hello world!');
                 })
-                .use('/move', function (req, res, next) {
+                .use('/move1', function (req, res, next) {
                   res.writeHead(302, {
                     'Location': 'http://localhost:7777/available'
                   });
                   res.statusCode = 302;
+                  res.end();
+                })
+                .use('/move2', function (req, res, next) {
+                  res.writeHead(301, {
+                    'Location': '/available'
+                  });
+                  res.statusCode = 301;
+                  res.end();
+                })
+                .use('/move3', function (req, res, next) {
+                  res.writeHead(301, {
+                    'Location': '../available'
+                  });
+                  res.statusCode = 301;
                   res.end();
                 })
                 .listen(7777);
@@ -65,14 +79,28 @@ describe('valid', function () {
   });
 
   it('should able to support a redirect url', function (done) {
-    valid.one('http://localhost:7777/move', function (err, valid) {
+    valid.one('http://localhost:7777/move1', function (err, valid) {
+      valid.should.be.true;
+      done();
+    });
+  });
+
+  it('should able to support a absolute path', function (done) {
+    valid.one('http://localhost:7777/move2', function (err, valid) {
+      valid.should.be.true;
+      done();
+    });
+  });
+
+  it('should able to support a relative path', function (done) {
+    valid.one('http://localhost:7777/move3', function (err, valid) {
       valid.should.be.true;
       done();
     });
   });
 
   it('should able to use .on method if it is a redirect url', function (done) {
-    valid.one('http://localhost:7777/move', function (err, valid) {
+    valid.one('http://localhost:7777/move1', function (err, valid) {
       valid.should.be.true;
     }).on('data', function (err, data) {
       data.toString().should.equal('hello world!');
@@ -95,7 +123,7 @@ describe('valid', function () {
 
   it('should emit end event when finish validity detection', function (done) {
     var step = 0
-      , v = valid('http://localhost:7777/move').on('check', function (err, valid) {
+      , v = valid('http://localhost:7777/move1').on('check', function (err, valid) {
           step.should.equal(0);
           step = 1;
           valid.should.be.true;
