@@ -136,4 +136,24 @@ describe('valid', function () {
           done();
         });
   });
+
+  it('should able to get the listeners', function () {
+    var v = valid('http://localhost:7777/available')
+            .on('data', function () {})
+            .on('check', function () {})
+            .on('data', function () {})
+            .on('end', function () {});
+    v.listeners().length.should.equal(4);
+    v.listeners('end').length.should.equal(1);
+    v.listeners('data').length.should.equal(2);
+  });
+
+  it('should able to remove all event listeners', function () {
+    var v = valid('http://localhost:7777/available')
+            .on('data', function () {})
+            .on('check', function () {})
+            .on('end', function () {});
+    v.listeners().length.should.equal(3);
+    v.removeAllListeners().listeners().length.should.equal(0);
+  });
 });
