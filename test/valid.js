@@ -156,4 +156,13 @@ describe('valid', function () {
     v.listeners().length.should.equal(3);
     v.removeAllListeners().listeners().length.should.equal(0);
   });
+
+  it('should able to remove specified event listeners', function () {
+    var v = valid('http://localhost:7777/available')
+            .on('data', function () {})
+            .on('check', function () {})
+            .on('end', function () {});
+    v.listeners().length.should.equal(3);
+    v.removeAllListeners('data').listeners().length.should.equal(2);
+  });
 });
