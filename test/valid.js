@@ -35,7 +35,7 @@ var testSever = connect()
 
 describe('valid', function () {
   it('should able to check one url', function (done) {
-    valid('http://localhost:7777/available', function (err, valid) {
+    valid('HTTP://localhost:7777/available', function (err, valid) {
       assert.deepEqual(err, null);
       valid.should.be.true;
       done();
