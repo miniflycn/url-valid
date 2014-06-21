@@ -43,7 +43,7 @@ describe('valid', function () {
   });
 
   it('should able to use .on method for one url', function (done) {
-    valid.one('http://localhost:7777/available').on('check', function (err, valid) {
+    valid('http://localhost:7777/available').on('check', function (err, valid) {
       assert.deepEqual(err, null);
       valid.should.be.true;
       done();
@@ -51,14 +51,14 @@ describe('valid', function () {
   });
 
   it('should able to detect a 404 url', function (done) {
-    valid.one('http://localhost:7777/unavailable', function (err, valid) {
+    valid('http://localhost:7777/unavailable', function (err, valid) {
       valid.should.be.false;
       done();
     });
   });
 
   it('should able to validate a url', function (done) {
-    valid.one('test.test', function (err, valid) {
+    valid('test.test', function (err, valid) {
       valid.should.be.false;
       done();
     });
@@ -66,41 +66,41 @@ describe('valid', function () {
 
 
   it('should able to fire when response finish', function (done) {
-    valid.one('http://localhost:7777/available').on('end', function () {
+    valid('http://localhost:7777/available').on('end', function () {
       done();
     });
   });
 
   it('should able to fire when response send data', function (done) {
-    valid.one('http://localhost:7777/available').on('data', function (err, data) {
+    valid('http://localhost:7777/available').on('data', function (err, data) {
       data.toString().should.equal('hello world!');
       done();
     });
   });
 
   it('should able to support a redirect url', function (done) {
-    valid.one('http://localhost:7777/move1', function (err, valid) {
+    valid('http://localhost:7777/move1', function (err, valid) {
       valid.should.be.true;
       done();
     });
   });
 
   it('should able to support a absolute path', function (done) {
-    valid.one('http://localhost:7777/move2', function (err, valid) {
+    valid('http://localhost:7777/move2', function (err, valid) {
       valid.should.be.true;
       done();
     });
   });
 
   it('should able to support a relative path', function (done) {
-    valid.one('http://localhost:7777/move3', function (err, valid) {
+    valid('http://localhost:7777/move3', function (err, valid) {
       valid.should.be.true;
       done();
     });
   });
 
   it('should able to use .on method if it is a redirect url', function (done) {
-    valid.one('http://localhost:7777/move1', function (err, valid) {
+    valid('http://localhost:7777/move1', function (err, valid) {
       valid.should.be.true;
     }).on('data', function (err, data) {
       data.toString().should.equal('hello world!');
@@ -114,9 +114,7 @@ describe('valid', function () {
               valid.should.be.true;
             }).on('end', function () {
               v.destroy();
-              assert.deepEqual(v.url, undefined);
-              assert.deepEqual(v.emitter, null);
-              assert.deepEqual(v.fetch, undefined);
+              v.listeners().length.should.equal(0);
               done();
             });
   });
