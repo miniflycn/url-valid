@@ -34,7 +34,7 @@ valid('http://www.google.com', function (err, valid) {
  * @param {Function} callback
  * @return {Valid}
  */
-valid('http://www.baidu.com', function (err, valid) {
+valid('http://ke.qq.com', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
@@ -45,10 +45,25 @@ valid('http://www.baidu.com', function (err, valid) {
  *    @param {String} event, event can be 'check', 'data', 'end'
  *    @param {Function} callback
  */
-valid('http://www.baidu.com').on('check', function (err, valid) {
+valid('http://ke.qq.com').on('check', function (err, valid) {
   if (err) throw err;
   console.log(valid);
 });
+/**
+ *  - destroy
+ */
+var v = valid('http://ke.qq.com');
+// do something
+v.destroy();
+/**
+ *  - listeners
+ *    @param {String} event
+ *    @returns {Array} listenerList
+ */
+valid.on('check', function (err, valid) {
+  if (err) throw err;
+  console.log(valid);
+}).listeners('check');
 ```
 
 ## Examples
